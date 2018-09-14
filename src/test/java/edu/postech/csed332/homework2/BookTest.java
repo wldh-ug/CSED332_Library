@@ -117,8 +117,8 @@ public class BookTest {
 
             add(null);
             add(new HashSet<>());
-            add(new HashSet<String>() {{ add(""); }});
-            add(new HashSet<String>() {{ add(null); }});
+            add(new HashSet<String>() {{ add(""); add(" "); }});
+            add(new HashSet<String>() {{ add(null); add(" "); }});
 
         }};
 
