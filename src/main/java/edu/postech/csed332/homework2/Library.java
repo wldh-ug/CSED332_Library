@@ -2,12 +2,13 @@ package edu.postech.csed332.homework2;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.FileWriter;
-import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.*;
 
 /**
  * Container class for all the collections (that eventually contain books). The library object is
@@ -19,12 +20,22 @@ import java.io.BufferedReader;
 public final class Library {
 
 	private List<Collection> collections;
+	private Kryo bin;
 
 	/**
 	 * Builds a new, empty library.
 	 */
 	public Library() {
-		// TODO implement this
+
+		// NOTE Implemented
+
+		this.collections = new ArrayList<>();
+		this.bin = new Kryo();
+		
+		bin.register(List.class);
+
+		System.out.println("Empty library created.");
+
 	}
 
 	/**
@@ -33,7 +44,30 @@ public final class Library {
 	 * @param fileName the file from where to restore the library.
 	 */
 	public Library(String fileName) {
-		// TODO implement this
+		
+		// NOTE Implemented
+
+		this.bin = new Kryo();
+
+		bin.register(List.class);
+
+		try {
+
+			Input save = new Input(new FileInputStream(fileName));
+			this.collections = bin.readObject(save, List.class);
+			save.close();
+
+			System.out.println("Library loaded from file '" + fileName + "'.");
+
+		} catch (Exception e) {
+
+			System.err.println("File '" + fileName + "' does not exists.");
+			this.collections = new ArrayList<>();
+
+			System.out.println("Empty library created.");
+
+		}
+
 	}
 
 	/**
@@ -42,7 +76,23 @@ public final class Library {
 	 * @param fileName the file where to save the library
 	 */
 	public void saveLibraryToFile(String fileName) {
-		// TODO implement this
+
+		// NOTE Implemented
+		
+		try {
+
+			Output save = new Output(new FileOutputStream(fileName));
+			bin.writeObject(save, this.collections);
+			save.close();
+
+			System.out.println("Library saved to file '" + fileName + "'.");
+
+		} catch (Exception e) {
+
+			System.err.println("File '" + fileName + "' cannot be opened, failed to save.");
+
+		}
+
 	}
 
 	/**
@@ -51,7 +101,11 @@ public final class Library {
 	 * @return library contained elements
 	 */
 	public List<Collection> getCollections() {
-		// TODO implement this
+		
+		// NOTE Implemented
+
+		return collections;
+
 	}
 
 	/**
@@ -72,7 +126,26 @@ public final class Library {
 	 * @return Return the set of the books that belong to the given collection
 	 */
 	public Set<Book> findBooks(String collection) {
+		
 		// TODO implement this
+
+		HashSet<Book> result = new HashSet<>();
+		Iterator<Collection> iter = this.collections.iterator();
+
+		while (iter.hasNext()) {
+
+			Collection tClctn = iter.next();
+
+			if (tClctn.getName().equals(collection)) {
+
+
+
+			}
+
+		}
+
+		return result;
+
 	}
 
 }

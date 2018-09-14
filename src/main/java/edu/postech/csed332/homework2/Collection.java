@@ -29,7 +29,7 @@ public final class Collection extends Element {
 		// NOTE Implemented
 
 		this.name = name;
-		this.elements = new List<>();
+		this.elements = new ArrayList<>();
 
 	}
 
@@ -39,7 +39,9 @@ public final class Collection extends Element {
 	 * @param stringRepresentation the string representation
 	 */
 	public static Collection restoreCollection(String stringRepresentation) {
+
 		// TODO implement this
+
 	}
 
 	/**
