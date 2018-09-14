@@ -1,6 +1,7 @@
 package edu.postech.csed332.homework2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +46,12 @@ public final class Book extends Element {
 	 */
 	public Book(String stringRepresentation) {
 
-		// TODO implement this
+		// NOTE Implemented
+
+		String[] splited = stringRepresentation.split("(?<!\\);");
+
+		this.title = unescape(splited[0]);
+		this.authors = new HashSet<>(Arrays.asList(unescape(splited[1]).split("(?<!\\);")));
 
 	}
 
@@ -57,9 +63,9 @@ public final class Book extends Element {
 	 */
 	public String getStringRepresentation() {
 		
-		// TODO implement this
+		// NOTE Implemented
 
-
+		return escape(this.title) + ";" + escape(String.join(";", this.authors));
 
 	}
 
@@ -73,7 +79,23 @@ public final class Book extends Element {
 	 * @return the list of collections
 	 */
 	public List<Collection> getContainingCollections() {
-		// TODO implement this
+		
+		// NOTE Implemented
+
+		ArrayList<Collection> result = new ArrayList<>();
+
+		Collection tClctn = this.getParentCollection();
+
+		while(tClctn != null) {
+
+			result.add(tClctn);
+
+			tClctn = tClctn.getParentCollection();
+
+		}
+
+		return result;
+
 	}
 
 	/**
@@ -82,7 +104,11 @@ public final class Book extends Element {
 	 * @return the title
 	 */
 	public String getTitle() {
-		// TODO implement this
+		
+		// NOTE Implemented
+
+		return this.title;
+
 	}
 
 	/**
@@ -91,7 +117,39 @@ public final class Book extends Element {
 	 * @return the authors
 	 */
 	public Set<String> getAuthor() {
-		// TODO implement this
+		
+		// NOTE Implemented
+
+		return this.authors;
+
+	}
+
+	/**
+	 * Escapes semicolons
+	 * 
+	 * @param original unescaped, original string
+	 * @return escaped string
+	 */
+	private String escape(String original) {
+
+		// NOTE Additional function
+
+		return original.replaceAll(";", "\\;");
+
+	}
+
+	/**
+	 * Unescapes semicolons
+	 * 
+	 * @param original escaped, original string
+	 * @return unescaped string
+	 */
+	private String unescape(String original) {
+
+		// NOTE Additional function
+
+		return original.replaceAll("\\;", ";");
+
 	}
 
 }
