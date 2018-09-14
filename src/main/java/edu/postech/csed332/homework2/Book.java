@@ -2,6 +2,7 @@ package edu.postech.csed332.homework2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,8 +34,9 @@ public final class Book extends Element {
 
 		// NOTE Implemented
 
-		this.title = title;
-		this.authors = authors;
+		this.title = (title == null) ? "" : title;
+		this.authors = (authors == null) ? new HashSet<>()
+				: authors.stream().map(au -> (au == null) ? "" : au).collect(Collectors.toSet());
 
 	}
 
@@ -48,10 +50,24 @@ public final class Book extends Element {
 
 		// NOTE Implemented
 
-		String[] splited = stringRepresentation.split("(?<!\\\\);");
+		if (stringRepresentation != null) {
 
-		this.title = unescape(splited[0]);
-		this.authors = Arrays.asList(unescape(splited[1]).split("(?<!\\\\);")).stream().map(au -> unescape(au)).collect(Collectors.toSet());
+			String[] splited = stringRepresentation.split("(?<!\\\\);");
+
+			if (splited.length == 2) {
+
+				this.title = unescape(splited[0]);
+				this.authors = Arrays.asList(unescape(splited[1]).split("(?<!\\\\);")).stream()
+						.map(au -> unescape(au)).collect(Collectors.toSet());
+
+				return;
+
+			}
+
+		}
+
+		this.title = "";
+		this.authors = new HashSet<>();
 
 	}
 
@@ -65,7 +81,8 @@ public final class Book extends Element {
 		
 		// NOTE Implemented
 
-		return escape(this.title) + ";" + escape(String.join(";", this.authors.stream().map(au -> escape(au)).collect(Collectors.toSet())));
+		return escape(this.title) + ";" + escape(String.join(";",
+				this.authors.stream().map(au -> escape(au)).collect(Collectors.toSet())));
 
 	}
 
