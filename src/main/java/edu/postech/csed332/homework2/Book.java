@@ -2,9 +2,9 @@ package edu.postech.csed332.homework2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A book will contain only the title and the author(s).
@@ -48,10 +48,10 @@ public final class Book extends Element {
 
 		// NOTE Implemented
 
-		String[] splited = stringRepresentation.split("(?<!\\);");
+		String[] splited = stringRepresentation.split("(?<!\\\\);");
 
 		this.title = unescape(splited[0]);
-		this.authors = new HashSet<>(Arrays.asList(unescape(splited[1]).split("(?<!\\);")));
+		this.authors = Arrays.asList(unescape(splited[1]).split("(?<!\\\\);")).stream().map(au -> unescape(au)).collect(Collectors.toSet());
 
 	}
 
@@ -65,7 +65,7 @@ public final class Book extends Element {
 		
 		// NOTE Implemented
 
-		return escape(this.title) + ";" + escape(String.join(";", this.authors));
+		return escape(this.title) + ";" + escape(String.join(";", this.authors.stream().map(au -> escape(au)).collect(Collectors.toSet())));
 
 	}
 
@@ -134,7 +134,7 @@ public final class Book extends Element {
 
 		// NOTE Additional function
 
-		return original.replaceAll(";", "\\;");
+		return original.replaceAll(";", "\\\\;");
 
 	}
 
@@ -148,7 +148,7 @@ public final class Book extends Element {
 
 		// NOTE Additional function
 
-		return original.replaceAll("\\;", ";");
+		return original.replaceAll("\\\\;", ";");
 
 	}
 
