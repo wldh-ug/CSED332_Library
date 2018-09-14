@@ -18,6 +18,7 @@ import java.io.BufferedReader;
  * some library to convert between Library objects and string representation.
  */
 public final class Library {
+	
 	private List<Collection> collections;
 
 	/**

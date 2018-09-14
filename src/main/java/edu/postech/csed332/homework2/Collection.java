@@ -16,6 +16,7 @@ import java.util.Set;
  * sub-collections) contained in this collection.
  */
 public final class Collection extends Element {
+	
 	List<Element> elements;
 	private String name;
 
@@ -25,7 +26,11 @@ public final class Collection extends Element {
 	 * @param name the name of the collection
 	 */
 	public Collection(String name) {
-		// TODO implement this
+		
+		// NOTE Implemented
+
+		
+
 	}
 
 	/**

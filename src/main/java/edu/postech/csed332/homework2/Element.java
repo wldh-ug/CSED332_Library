@@ -17,23 +17,25 @@ package edu.postech.csed332.homework2;
  * Its two methods have been already implemented.
  */
 public abstract class Element {
-    private Collection parentCollection;
-    
-    /**
-     * Get the parent collection of this element.
-     *
-     * @return parent collection
-     */
-    public Collection getParentCollection() {
-        return parentCollection;
-    }
 
-    /**
-     * Set the parent collection for this element.
-     *
-     * @param collection collection to be set as parent
-     */
-    public void setParentCollection(Collection collection) {
-        parentCollection = collection;
-    }
+	private Collection parentCollection;
+	
+	/**
+	 * Get the parent collection of this element.
+	 *
+	 * @return parent collection
+	 */
+	public Collection getParentCollection() {
+		return parentCollection;
+	}
+
+	/**
+	 * Set the parent collection for this element.
+	 *
+	 * @param collection collection to be set as parent
+	 */
+	public void setParentCollection(Collection collection) {
+		parentCollection = collection;
+	}
+	
 }
