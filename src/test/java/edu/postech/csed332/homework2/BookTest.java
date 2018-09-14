@@ -50,7 +50,8 @@ public class BookTest {
 
         // Test for titles
         assertEquals(bookA.getTitle(), "아, 보람 따위 됐으니 야근수당이나 주세요");
-        assertEquals(bookB.getTitle(), "Robin Hood; His Deeds and Adventures as Recounted in the Old English Ballads;");
+        assertEquals(bookB.getTitle(),
+                "Robin Hood; His Deeds and Adventures as Recounted in the Old English Ballads;");
 
         // Test for authors
         assertTrue(bookA.getAuthor().contains("이소담"));
@@ -117,6 +118,7 @@ public class BookTest {
             add(null);
             add(new HashSet<>());
             add(new HashSet<String>() {{ add(""); }});
+            add(new HashSet<String>() {{ add(null); }});
 
         }};
 
@@ -130,7 +132,8 @@ public class BookTest {
             while (iterA.hasNext()) {
 
                 Book book = new Book(tStr, iterA.next());
-                System.out.println("Load book: <" + book.getTitle() + "> by " + String.join(", ", book.getAuthor()));
+                System.out.println("Load book: <" + book.getTitle() + "> by "
+                        + String.join(", ", book.getAuthor()));
 
             }
 
@@ -143,7 +146,8 @@ public class BookTest {
         for (int i = 0; i < params.length; i++) {
 
             Book book = new Book(params[i]);
-            System.out.println("Load book: <" + book.getTitle() + "> by " + String.join(", ", book.getAuthor()));
+            System.out.println("Load book: <" + book.getTitle() + "> by "
+                    + String.join(", ", book.getAuthor()));
 
         }
 
