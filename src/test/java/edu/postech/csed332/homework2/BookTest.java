@@ -95,6 +95,7 @@ public class BookTest {
 	public void testBookConstructor3() {
 
 		// NOTE Additional test suite
+		// ! There's no duty for taking care of string representation of strance cases
 
 		/* Test type A */
 
@@ -147,6 +148,7 @@ public class BookTest {
 
 	}
 	
+	@DisplayName("Testing SR from string and set")
 	@Test
 	public void testGetStringRepresentation1() {
 		
@@ -175,6 +177,7 @@ public class BookTest {
 
 	}
 
+	@DisplayName("Testing SR from SR")
 	@Test
 	public void testGetStringRepresentation2() {
 
@@ -206,8 +209,10 @@ public class BookTest {
 
 	}
 
+	@DisplayName("Testing collections: the simplest case")
 	@Test
 	public void testGetContainingCollections1() {
 		//TODO implement this
 	}
+
 }
