@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import com.google.gson.Gson;
 
 /**
  * The Collection class represents a single collection. It contains a name of the collection and
@@ -41,7 +42,9 @@ public final class Collection extends Element {
 	 */
 	public static Collection restoreCollection(String stringRepresentation) {
 
-		// TODO implement this
+		// NOTE Implemented
+		
+		return (new Gson()).fromJson(stringRepresentation, Collection.class);
 
 	}
 
@@ -53,7 +56,11 @@ public final class Collection extends Element {
 	 * @return string representation of this collection
 	 */
 	public String getStringRepresentation() {
-		// TODO implement this
+		
+		// NOTE Implemented
+
+		return (new Gson()).toJson(this);
+
 	}
 
 	/**
