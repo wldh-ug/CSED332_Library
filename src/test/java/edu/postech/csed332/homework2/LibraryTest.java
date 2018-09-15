@@ -3,32 +3,33 @@ package edu.postech.csed332.homework2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
-import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * Cover following methods,
- * Library.java
- * Library(String fileName)
- * saveLibraryToFile(String fileName)
+ * Cover following methods, Library.java Library(String fileName) saveLibraryToFile(String fileName)
  * Set<Book> findBooks(String collection)
  */
 public class LibraryTest {
 
+	@DisplayName("Loading library from file on simple case")
 	@Test
 	public void testLibraryConstructorFromFile1() {
-		
+
 		// NOTE Implemented
 
 		Library lib = new Library(".\\save\\example.lib");
 
 		assertEquals(2, lib.getCollections().size());
-		assertEquals("Born a Crime: Stories from a South African Childhood", lib.getCollections().get(0).findTitle("Trevor Noah").iterator().next().getTitle());
-		assertEquals("The Reason I Jump: The Inner Voice of a Thirteen-Year-Old Boy with Autism", lib.getCollections().get(1).findTitle("Naoki Higashida").iterator().next().getTitle());
+		assertEquals("Born a Crime: Stories from a South African Childhood",
+				lib.getCollections().get(0).findTitle("Trevor Noah").iterator().next().getTitle());
+		assertEquals("The Reason I Jump: The Inner Voice of a Thirteen-Year-Old Boy with Autism",
+				lib.getCollections().get(1).findTitle("Naoki Higashida").iterator().next()
+						.getTitle());
 
 	}
 
+	@DisplayName("Loading library from file on unexpected cases")
 	@Test
 	public void testLibraryConstructorFromFile2() {
 
@@ -46,10 +47,10 @@ public class LibraryTest {
 
 	}
 
-	@DisplayName("Normal case")
+	@DisplayName("Saving library to file with normal library")
 	@Test
 	public void testSaveLibraryToFile1() {
-		
+
 		// NOTE Implemented
 
 		// Book Collections
@@ -112,10 +113,10 @@ public class LibraryTest {
 
 	}
 
-	@DisplayName("Empty case")
+	@DisplayName("Saving library to file with empty library")
 	@Test
 	public void testSaveLibraryToFile2() {
-		
+
 		// NOTE Additional test suite
 
 		Library lib = new Library();
@@ -126,10 +127,11 @@ public class LibraryTest {
 		assertTrue(save.length() > 0);
 
 	}
-	
+
+	@DisplayName("Finding books on normal library with normal parameter")
 	@Test
 	public void testFindBooks1() {
-		
+
 		// NOTE Implemented
 
 		Library lib = new Library(".\\save\\example.lib");
@@ -139,6 +141,7 @@ public class LibraryTest {
 
 	}
 
+	@DisplayName("Finding books on normal library with unexpected parameter")
 	@Test
 	public void testFindBooks2() {
 

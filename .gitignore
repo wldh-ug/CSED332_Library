@@ -1,4 +1,4 @@
-## Test Code
+## Library Test Code
 save/*
 !save/empty.lib
 !save/wrong.lib

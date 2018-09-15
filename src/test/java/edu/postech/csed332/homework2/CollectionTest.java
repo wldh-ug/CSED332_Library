@@ -8,20 +8,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 /**
- * Cover following methods,
- * Collection.java
- * static Collection restoreCollection(String stringRepresentation) // static method instead of constructor
- * String getStringRepresentation()
- * boolean addElement(Element element) // see comments in code for some conditions
- * boolean deleteElement(Element element) // see comments in code for some conditions
- * Set<Books> findTitle(String author)
+ * Cover following methods, Collection.java static Collection restoreCollection(String
+ * stringRepresentation) // static method instead of constructor String getStringRepresentation()
+ * boolean addElement(Element element) // see comments in code for some conditions boolean
+ * deleteElement(Element element) // see comments in code for some conditions Set<Books>
+ * findTitle(String author)
  */
 public class CollectionTest {
 
-	@DisplayName("Testing of generating collections from SR (normal case)")
+	@DisplayName("Generating collections from SRs on normal case")
 	@Test
 	public void testRestoreCollection1() {
-		
+
 		// NOTE Implemented
 
 		Collection clA = Collection.restoreCollection(
@@ -31,11 +29,11 @@ public class CollectionTest {
 		Collection clC = Collection.restoreCollection(
 				"{\"type\":\"cl\",\"name\":\"History\",\"els\":[{\"type\":\"cl\",\"name\":\"World\",\"els\":[{\"type\":\"book\",\"data\":\"Robin Hood\\\\; His Deeds and Adventures as Recounted in the Old English Ballads\\\\;;Lucy Fitch\\\\;Comp Perkins\"}]},{\"type\":\"book\",\"data\":\"The Final Mission of Extortion 17: Special Ops, Helicopter Support, SEAL Team Six, and the Deadliest Day of the US War in Afghanista;Ed Darack\"}]}");
 
-		
+
 
 	}
-	
-	@DisplayName("Testing of generating collections from SR (loopback)")
+
+	@DisplayName("Generating SRs from SRs")
 	@Test
 	public void testRestoreCollection2() {
 
@@ -59,7 +57,7 @@ public class CollectionTest {
 
 	}
 
-	@DisplayName("Testing of generating collections from SR (exceptional case)")
+	@DisplayName("Generating collections from SRs on exceptional cases")
 	@Test
 	public void testRestoreCollection3() {
 
@@ -74,12 +72,12 @@ public class CollectionTest {
 
 	}
 
-	@DisplayName("Testing of generating collections and SR of them from string and list (simplest)")
+	@DisplayName("Generating SRs from ingredients on simple cases")
 	@Test
 	public void testGetStringRepresentation1() {
 
 		// NOTE Implemented
-		
+
 		Book bookA = new Book("아, 보람 따위 됐으니 야근수당이나 주세요;히노 에이타로\\;이소담");
 
 		Collection clA = new Collection("Social");
@@ -93,7 +91,7 @@ public class CollectionTest {
 
 	}
 
-	@DisplayName("Testing of generating collections and SR of them from string and list (complex)")
+	@DisplayName("Generating SRs from ingredients on complex cases")
 	@Test
 	public void testGetStringRepresentation2() {
 
@@ -121,10 +119,10 @@ public class CollectionTest {
 
 	}
 
-	@DisplayName("Testing of addition of elements (normal case)")
+	@DisplayName("Appending elements on normal cases")
 	@Test
 	public void testAddElement1() {
-		
+
 		// NOTE Implemented
 
 		// Book Collections
@@ -209,7 +207,7 @@ public class CollectionTest {
 
 	}
 
-	@DisplayName("Testing of addition of elements (exceptional case)")
+	@DisplayName("Appending elements on unexpected cases")
 	@Test
 	public void testAddElement2() {
 
@@ -222,7 +220,7 @@ public class CollectionTest {
 
 	}
 
-	@DisplayName("Testing of addition of elements (duplicated case)")
+	@DisplayName("Appending elements on duplicated cases")
 	@Test
 	public void testAddElement3() {
 
@@ -250,10 +248,10 @@ public class CollectionTest {
 
 	}
 
-	@DisplayName("Testing of removal of elements (normal case)")
+	@DisplayName("Removing elements on normal cases")
 	@Test
 	public void testDeleteElement1() {
-		
+
 		// NOTE Implemented
 
 		// Book Collections
@@ -275,7 +273,7 @@ public class CollectionTest {
 
 	}
 
-	@DisplayName("Testing of removal of elements (exceptional case)")
+	@DisplayName("Removing elements on unexpected cases")
 	@Test
 	public void testDeleteElement2() {
 
@@ -287,11 +285,11 @@ public class CollectionTest {
 		assertFalse(cl.deleteElement(cl));
 
 	}
-	
-	@DisplayName("Testing of finding title by author name")
+
+	@DisplayName("Finding title by author name")
 	@Test
 	public void testFindTitle() {
-		
+
 		// NOTE Implemented
 
 		Collection clA = new Collection("ExampleA");

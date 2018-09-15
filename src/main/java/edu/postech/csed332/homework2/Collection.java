@@ -283,7 +283,7 @@ public final class Collection extends Element {
 					if (book.getAuthor().contains(author)) {
 
 						result.add(book);
-						System.out.println("Query: Book <" + book.getTitle() + "> found.");
+						System.out.println("Queried: <" + book.getTitle() + ">");
 
 					}
 
