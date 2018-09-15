@@ -35,5 +35,9 @@ A function for addition of collections to specific library.
 #### If characters from test result is broken
 Please set your console's code page to **UTF-8(65001)**.
 
-#### JaCoCo successfully executed, but no reports
+#### `mvn jacoco:report` successfully executed, but no reports created
 Please move repository to the path which does not cotain non-ASCII characters.  
+
+#### `mvn test` success message does not appears
+- **Option 1:** Please turn off [UTF-8(Beta)](https://superuser.com/questions/1332086/input-corrupted-on-windows-10-after-1083-update-ascii-chars-are-replaced-with) feature on latest Windows 10. It's not stable, so Microsoft basically disabled by default this feature for now.  
+- **Option 2:** Please use [WSL](https://docs.microsoft.com/ko-kr/windows/wsl/install-win10) shell instead of CMD or PowerShell.  
