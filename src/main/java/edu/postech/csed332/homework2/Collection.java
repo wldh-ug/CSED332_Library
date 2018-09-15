@@ -195,14 +195,8 @@ public final class Collection extends Element {
 			}
 
 			// Add to collection
-			try {
-
-				element.setParentCollection(this);
-				return this.elements.add(element);
-
-			} catch (Exception e) {
-				System.err.println(e.toString());
-			}
+			element.setParentCollection(this);
+			return this.elements.add(element);
 
 		} else if (element != null && element.getParentCollection().equals(this)) {
 
@@ -287,13 +281,11 @@ public final class Collection extends Element {
 
 					}
 
-				} else if (one instanceof Collection) {
+				} else {
 
 					Collection cl = (Collection) one;
 					result.addAll(cl.findTitle(author));
 
-				} else {
-					System.err.println("Failed to analyze type of an element.");
 				}
 
 			}
