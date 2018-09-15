@@ -5,13 +5,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.*;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
-import org.jasypt.util.text.StrongTextEncryptor;
 
 /**
  * Container class for all the collections (that eventually contain books). The library object is
@@ -40,7 +38,7 @@ public final class Library {
 		bin.register(ArrayList.class);
 		enc.setPassword("jEAAACFBAAYAZsYmNozPE+QsIOSVyb9l+0wdD91frI6ucuodtBZnL9CN/66dRqJwBFRsbcKdMfvNkkMa5FRVRRWHBSjyKA7BXpn4ZlgxJ");
 
-		System.out.println("Empty library created.");
+		System.out.println("New library created.");
 
 	}
 
@@ -55,6 +53,7 @@ public final class Library {
 
 		this.bin = new Kryo();
 		this.enc = new StandardPBEStringEncryptor();
+		this.collections = new ArrayList<>();
 
 		bin.register(ArrayList.class);
 		enc.setPassword("jEAAACFBAAYAZsYmNozPE+QsIOSVyb9l+0wdD91frI6ucuodtBZnL9CN/66dRqJwBFRsbcKdMfvNkkMa5FRVRRWHBSjyKA7BXpn4ZlgxJ");
@@ -62,10 +61,29 @@ public final class Library {
 		try {
 
 			Input save = new Input(new FileInputStream(fileName));
-			this.collections = bin.readObject(save, List.class);
-			save.close();
 
-			System.out.println("Library loaded from file '" + fileName + "'.");
+			try {
+
+				ArrayList<String> data = bin.readObject(save, ArrayList.class);
+
+				Iterator<String> iter = data.iterator();
+
+				while (iter.hasNext()) {
+					this.collections.add(Collection.restoreCollection(this.enc.decrypt(iter.next())));
+				}
+
+				System.out.println("Library loaded from file '" + fileName + "'.");
+
+			} catch (Exception e) {
+
+				System.err.println("Libaray loading failed. Collections are empty.");
+				System.err.println(e.toString());
+
+			} finally {
+				
+				save.close();
+
+			}
 
 		} catch (Exception e) {
 
@@ -87,20 +105,21 @@ public final class Library {
 
 		// NOTE Implemented
 
-		// Prepare data
-		Iterator<Collection> iter = this.collections.iterator();
-		ArrayList<String> data = new ArrayList<>();
-
-		while (iter.hasNext()) {
-			data.add(this.enc.encrypt(iter.next().getStringRepresentation()));
-		}
-
 		try {
 
 			Output save = new Output(new FileOutputStream(fileName));
 
 			try {
 
+				// Prepare data
+				Iterator<Collection> iter = this.collections.iterator();
+				ArrayList<String> data = new ArrayList<>();
+
+				while (iter.hasNext()) {
+					data.add(this.enc.encrypt(iter.next().getStringRepresentation()));
+				}
+
+				// Save data
 				bin.writeObject(save, data);
 				System.out.println("Library saved to file '" + fileName + "'.");
 
@@ -195,9 +214,7 @@ public final class Library {
 			Collection tClctn = iterC.next();
 
 			if (tClctn.getName().equals(collection)) {
-
 				fltdClList.add(tClctn);
-
 			} else {
 
 				Iterator<Element> iterE = tClctn.getElements().iterator();
@@ -207,9 +224,7 @@ public final class Library {
 					Element item = iterE.next();
 
 					if (item instanceof Collection) {
-
 						clList.add((Collection) item);
-
 					}
 
 				}
@@ -230,13 +245,9 @@ public final class Library {
 				Element item = iterFE.next();
 
 				if (item instanceof Book) {
-
 					result.add((Book) item);
-
 				} else if (item instanceof Collection) {
-
 					fltdClList.add((Collection) item);
-
 				}
 
 			}
