@@ -1,11 +1,21 @@
 package edu.postech.csed332.homework2;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 /**
  * The Collection class represents a single collection. It contains a name of the collection and
@@ -43,8 +53,40 @@ public final class Collection extends Element {
 	public static Collection restoreCollection(String stringRepresentation) {
 
 		// NOTE Implemented
-		
-		return (new Gson()).fromJson(stringRepresentation, Collection.class);
+
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapter(Element.class, new JsonDeserializer<Element>() {
+
+					@Override
+					public Element deserialize(final JsonElement json, final Type type,
+							JsonDeserializationContext cxt) throws JsonParseException {
+
+						JsonObject o = json.getAsJsonObject();
+						String oType = o.get("type").getAsString();
+
+						if (oType.equals("cl")) {
+
+							Collection cl = new Collection(o.get("name").getAsString());
+
+							Iterator<JsonElement> iter = o.get("els").getAsJsonArray().iterator();
+
+							while (iter.hasNext()) {
+								cl.addElement(cxt.deserialize(iter.next(), Element.class));
+							}
+
+							return cl;
+
+						} else if (oType.equals("book")) {
+							return new Book(o.get("data").getAsString());
+						} else {
+							throw new JsonParseException("Unknown object type.");
+						}
+
+					}
+
+				}).create();
+
+		return (Collection) gson.fromJson(stringRepresentation, Element.class);
 
 	}
 
@@ -59,7 +101,46 @@ public final class Collection extends Element {
 		
 		// NOTE Implemented
 
-		return (new Gson()).toJson(this);
+		Gson gson =
+				new GsonBuilder().registerTypeAdapter(Element.class, new JsonSerializer<Element>() {
+
+					@Override
+					public JsonElement serialize(final Element el, final Type type,
+							final JsonSerializationContext cxt) {
+
+						final JsonObject rs = new JsonObject();
+
+						if (el instanceof Collection) {
+
+							Collection cl = (Collection) el;
+							JsonArray els = new JsonArray();
+
+							Iterator<Element> iter = cl.elements.iterator();
+
+							while (iter.hasNext()) {
+								els.add(cxt.serialize(iter.next(), Element.class));
+							}
+
+							rs.addProperty("type", "cl");
+							rs.addProperty("name", cl.getName());
+							rs.add("els", els);
+
+						} else if (el instanceof Book) {
+
+							Book book = (Book) el;
+
+							rs.addProperty("type", "book");
+							rs.addProperty("data", book.getStringRepresentation());
+
+						}
+
+						return rs;
+
+					}
+
+				}).create();
+
+		return gson.toJson(this, Element.class);
 
 	}
 
