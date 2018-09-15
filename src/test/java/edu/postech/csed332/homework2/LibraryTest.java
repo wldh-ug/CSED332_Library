@@ -18,7 +18,7 @@ public class LibraryTest {
 
 		// NOTE Implemented
 
-		Library lib = new Library(".\\save\\example.lib");
+		Library lib = new Library("." + File.separator + "save" + File.separator + "example.lib");
 
 		assertEquals(2, lib.getCollections().size());
 		assertEquals("Born a Crime: Stories from a South African Childhood",
@@ -35,10 +35,10 @@ public class LibraryTest {
 
 		// NOTE Additional test suite
 
-		Library wrong = new Library(".\\save\\wrong.lib");
-		Library text = new Library(".\\save\\text.lib");
-		Library empty = new Library(".\\save\\empty.lib");
-		Library zero = new Library(".\\save\\zero.lib");
+		Library wrong = new Library("." + File.separator + "save" + File.separator + "wrong.lib");
+		Library text = new Library("." + File.separator + "save" + File.separator + "text.lib");
+		Library empty = new Library("." + File.separator + "save" + File.separator + "empty.lib");
+		Library zero = new Library("." + File.separator + "save" + File.separator + "zero.lib");
 
 		assertEquals(0, wrong.getCollections().size());
 		assertEquals(0, text.getCollections().size());
@@ -104,10 +104,10 @@ public class LibraryTest {
 		lib.addCollection(clAP);
 		lib.addCollection(clBM);
 
-		lib.saveLibraryToFile(".\\save\\example-test.lib");
+		lib.saveLibraryToFile("." + File.separator + "save" + File.separator + "example-test.lib");
 
 		// Test file exists and has contents
-		File save = new File(".\\save\\example-test.lib");
+		File save = new File("." + File.separator + "save" + File.separator + "example-test.lib");
 		assertTrue(save.exists());
 		assertTrue(save.length() > 0);
 
@@ -120,9 +120,9 @@ public class LibraryTest {
 		// NOTE Additional test suite
 
 		Library lib = new Library();
-		lib.saveLibraryToFile(".\\save\\empty-test.lib");
+		lib.saveLibraryToFile("." + File.separator + "save" + File.separator + "empty-test.lib");
 
-		File save = new File(".\\save\\empty-test.lib");
+		File save = new File("." + File.separator + "save" + File.separator + "empty-test.lib");
 		assertTrue(save.exists());
 		assertTrue(save.length() > 0);
 
@@ -134,7 +134,7 @@ public class LibraryTest {
 
 		// NOTE Implemented
 
-		Library lib = new Library(".\\save\\example.lib");
+		Library lib = new Library("." + File.separator + "save" + File.separator + "example.lib");
 
 		assertEquals(4, lib.findBooks("Arts & Photography").size());
 		assertEquals(6, lib.findBooks("Biographies & Memoirs").size());
@@ -147,7 +147,7 @@ public class LibraryTest {
 
 		// NOTE Additional test suite
 
-		Library lib = new Library(".\\save\\example.lib");
+		Library lib = new Library("." + File.separator + "save" + File.separator + "example.lib");
 
 		assertEquals(0, lib.findBooks(null).size());
 		assertEquals(0, lib.findBooks("").size());
