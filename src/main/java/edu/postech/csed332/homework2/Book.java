@@ -78,7 +78,7 @@ public final class Book extends Element {
 	 * @return the string representation
 	 */
 	public String getStringRepresentation() {
-		
+
 		// NOTE Implemented
 
 		return escape(this.title) + ";" + escape(String.join(";",
@@ -96,17 +96,15 @@ public final class Book extends Element {
 	 * @return the list of collections
 	 */
 	public List<Collection> getContainingCollections() {
-		
+
 		// NOTE Implemented
 
 		ArrayList<Collection> result = new ArrayList<>();
-
 		Collection tClctn = this.getParentCollection();
 
-		while(tClctn != null) {
+		while (tClctn != null) {
 
 			result.add(tClctn);
-
 			tClctn = tClctn.getParentCollection();
 
 		}
@@ -121,7 +119,7 @@ public final class Book extends Element {
 	 * @return the title
 	 */
 	public String getTitle() {
-		
+
 		// NOTE Implemented
 
 		return this.title;
@@ -134,7 +132,7 @@ public final class Book extends Element {
 	 * @return the authors
 	 */
 	public Set<String> getAuthor() {
-		
+
 		// NOTE Implemented
 
 		return this.authors;

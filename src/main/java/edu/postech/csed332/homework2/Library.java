@@ -34,11 +34,10 @@ public final class Library {
 		this.collections = new ArrayList<>();
 		this.bin = new Kryo();
 		this.enc = new StandardPBEStringEncryptor();
-		
-		bin.register(ArrayList.class);
-		enc.setPassword("jEAAACFBAAYAZsYmNozPE+QsIOSVyb9l+0wdD91frI6ucuodtBZnL9CN/66dRqJwBFRsbcKdMfvNkkMa5FRVRRWHBSjyKA7BXpn4ZlgxJ");
 
-		System.out.println("New library created.");
+		bin.register(ArrayList.class);
+		enc.setPassword(
+				"jEAAACFBAAYAZsYmNozPE+QsIOSVyb9l+0wdD91frI6ucuodtBZnL9CN/66dRqJwBFRsbcKdMfvNkkMa5FRVRRWHBSjyKA7BXpn4ZlgxJ");
 
 	}
 
@@ -48,7 +47,7 @@ public final class Library {
 	 * @param fileName the file from where to restore the library.
 	 */
 	public Library(String fileName) {
-		
+
 		// NOTE Implemented
 
 		this.bin = new Kryo();
@@ -56,7 +55,8 @@ public final class Library {
 		this.collections = new ArrayList<>();
 
 		bin.register(ArrayList.class);
-		enc.setPassword("jEAAACFBAAYAZsYmNozPE+QsIOSVyb9l+0wdD91frI6ucuodtBZnL9CN/66dRqJwBFRsbcKdMfvNkkMa5FRVRRWHBSjyKA7BXpn4ZlgxJ");
+		enc.setPassword(
+				"jEAAACFBAAYAZsYmNozPE+QsIOSVyb9l+0wdD91frI6ucuodtBZnL9CN/66dRqJwBFRsbcKdMfvNkkMa5FRVRRWHBSjyKA7BXpn4ZlgxJ");
 
 		try {
 
@@ -69,10 +69,9 @@ public final class Library {
 				Iterator<String> iter = data.iterator();
 
 				while (iter.hasNext()) {
-					this.collections.add(Collection.restoreCollection(this.enc.decrypt(iter.next())));
+					this.collections
+							.add(Collection.restoreCollection(this.enc.decrypt(iter.next())));
 				}
-
-				System.out.println("Library loaded from file '" + fileName + "'.");
 
 			} catch (Exception e) {
 
@@ -80,17 +79,13 @@ public final class Library {
 				System.err.println(e.toString());
 
 			} finally {
-				
 				save.close();
-
 			}
 
 		} catch (Exception e) {
 
-			System.err.println("File '" + fileName + "' does not exists.");
+			System.err.println("File '" + fileName + "' does not exists. Libiary is empty.");
 			this.collections = new ArrayList<>();
-
-			System.out.println("Empty library created.");
 
 		}
 
@@ -121,7 +116,6 @@ public final class Library {
 
 				// Save data
 				bin.writeObject(save, data);
-				System.out.println("Library saved to file '" + fileName + "'.");
 
 			} catch (Exception e) {
 
@@ -129,14 +123,13 @@ public final class Library {
 				System.err.println(e.toString());
 
 			} finally {
-
 				save.close();
-
 			}
 
 		} catch (Exception e) {
 
-			System.err.println("File '" + fileName + "' cannot be opened, failed to save. Check permissions and if target directory does not exists.");
+			System.err.println("File '" + fileName
+					+ "' cannot be opened, failed to save. Check permissions and if target directory does not exists.");
 
 		}
 
@@ -148,7 +141,7 @@ public final class Library {
 	 * @return library contained elements
 	 */
 	public List<Collection> getCollections() {
-		
+
 		// NOTE Implemented
 
 		return collections;
@@ -167,14 +160,12 @@ public final class Library {
 		Iterator<Collection> iter = collections.iterator();
 
 		while (iter.hasNext()) {
-			if (iter.next().getName().equals(cl.getName())) { 
+			if (iter.next().getName().equals(cl.getName())) {
 				return;
 			}
 		}
 
 		collections.add(cl);
-
-		System.out.println("New collection [" + cl.getName() + "] added to library.");
 
 	}
 
@@ -196,7 +187,7 @@ public final class Library {
 	 * @return Return the set of the books that belong to the given collection
 	 */
 	public Set<Book> findBooks(String collection) {
-		
+
 		// NOTE Implemented
 
 		HashSet<Book> result = new HashSet<>();

@@ -67,7 +67,6 @@ public final class Collection extends Element {
 						if (oType.equals("cl")) {
 
 							Collection cl = new Collection(o.get("name").getAsString());
-
 							Iterator<JsonElement> iter = o.get("els").getAsJsonArray().iterator();
 
 							while (iter.hasNext()) {
@@ -92,9 +91,7 @@ public final class Collection extends Element {
 					(stringRepresentation == null) ? "" : stringRepresentation, Element.class);
 
 		} catch (Exception e) {
-
 			return new Collection("");
-
 		}
 
 	}
@@ -107,7 +104,7 @@ public final class Collection extends Element {
 	 * @return string representation of this collection
 	 */
 	public String getStringRepresentation() {
-		
+
 		// NOTE Implemented
 
 		Gson gson =
@@ -181,7 +178,7 @@ public final class Collection extends Element {
 
 		if (element != null && element.getParentCollection() == null) {
 
-			// Check if element is one of parents of this collection
+			// Block cycle
 			ArrayList<Collection> parents = new ArrayList<Collection>();
 			parents.add(this);
 
@@ -194,21 +191,17 @@ public final class Collection extends Element {
 			}
 
 			if (parents.contains(element)) {
-
 				return false;
-
 			}
 
-			// Non-cycle check completed
+			// Add to collection
 			try {
 
 				element.setParentCollection(this);
 				return this.elements.add(element);
 
 			} catch (Exception e) {
-
 				System.err.println(e.toString());
-
 			}
 
 		} else if (element != null && element.getParentCollection().equals(this)) {
@@ -217,9 +210,7 @@ public final class Collection extends Element {
 			return true;
 
 		} else {
-
 			System.err.println("Element is null or already have parent collection.");
-
 		}
 
 		return false;
@@ -292,7 +283,7 @@ public final class Collection extends Element {
 					if (book.getAuthor().contains(author)) {
 
 						result.add(book);
-						System.out.println("Book <" + book.getTitle() + "> found.");
+						System.out.println("Query: Book <" + book.getTitle() + "> found.");
 
 					}
 
@@ -302,9 +293,7 @@ public final class Collection extends Element {
 					result.addAll(cl.findTitle(author));
 
 				} else {
-
 					System.err.println("Failed to analyze type of an element.");
-
 				}
 
 			}
