@@ -209,10 +209,98 @@ public class BookTest {
 
 	}
 
-	@DisplayName("Testing collections: the simplest case")
+	@DisplayName("Testing collections (normal cases)")
 	@Test
 	public void testGetContainingCollections1() {
-		//TODO implement this
+
+		// NOTE Implemented
+		
+		// Book Collections
+		Collection clAP = new Collection("Arts & Photography");
+		Collection clAP_D = new Collection("Drawing");
+		Collection clAP_D_PID = new Collection("Pen & Ink Drawing");
+
+		// Books
+		Book bookAP =
+				new Book("Born a Crime: Stories from a South African Childhood;Trevor Noah");
+		Book bookAP_D = new Book(
+				"Adult Coloring Book : Stress Relieving Designs Animals, Mandalas, Flowers, Paisley Patterns And So Much More;Selah Works Prints");
+		Book bookAP_D_PID = new Book(
+				"Lettering and Modern Calligraphy: A Beginner's Guide: Learn Hand Lettering and Brush Lettering;Paper Peony Press");
+
+		// Structure collections
+		clAP.addElement(clAP_D);
+		clAP_D.addElement(clAP_D_PID);
+
+		// Register books to proper collection
+		clAP.addElement(bookAP);
+		clAP_D.addElement(bookAP_D);
+		clAP_D_PID.addElement(bookAP_D_PID);
+
+		// Check for bookAP
+		List<Collection> apCl = bookAP.getContainingCollections();
+		assertTrue(apCl.contains(clAP));
+		assertFalse(apCl.contains(clAP_D));
+		assertFalse(apCl.contains(clAP_D_PID));
+
+		// Check for bookAP_D
+		List<Collection> apDCl = bookAP_D.getContainingCollections();
+		assertTrue(apDCl.contains(clAP));
+		assertTrue(apDCl.contains(clAP_D));
+		assertFalse(apDCl.contains(clAP_D_PID));
+
+		// Check for bookAP_D_PID
+		List<Collection> apDPidCl = bookAP_D_PID.getContainingCollections();
+		assertTrue(apDPidCl.contains(clAP));
+		assertTrue(apDPidCl.contains(clAP_D));
+		assertTrue(apDPidCl.contains(clAP_D_PID));
+
+	}
+
+	@DisplayName("Testing collections (other cases)")
+	@Test
+	public void testGetContainingCollections2() {
+
+		// NOTE Additional test suite
+
+		// Book Collections
+		Collection clAP = new Collection("Arts & Photography");
+		Collection clAP_D = new Collection("Drawing");
+		Collection clAP_D_PID = new Collection("Pen & Ink Drawing");
+
+		// Books
+		Book bookAP = new Book("Born a Crime: Stories from a South African Childhood;Trevor Noah");
+		Book bookAP_D = new Book(
+				"Adult Coloring Book : Stress Relieving Designs Animals, Mandalas, Flowers, Paisley Patterns And So Much More;Selah Works Prints");
+		Book bookAP_D_PID = new Book(
+				"Lettering and Modern Calligraphy: A Beginner's Guide: Learn Hand Lettering and Brush Lettering;Paper Peony Press");
+
+		// Structure collections
+		clAP_D.addElement(clAP_D_PID);
+
+		// Register books to proper collection
+		clAP.addElement(bookAP);
+		clAP_D.addElement(bookAP_D);
+		clAP_D_PID.addElement(bookAP_D_PID);
+
+		// Check for bookAP
+		List<Collection> apCl = bookAP.getContainingCollections();
+		assertTrue(apCl.contains(clAP));
+		assertFalse(apCl.contains(clAP_D));
+		assertFalse(apCl.contains(clAP_D_PID));
+
+		// Check for bookAP_D
+		List<Collection> apDCl = bookAP_D.getContainingCollections();
+		assertFalse(apDCl.contains(clAP));
+		assertTrue(apDCl.contains(clAP_D));
+		assertFalse(apDCl.contains(clAP_D_PID));
+
+		// Check for bookAP_D_PID
+		List<Collection> apDPidCl = bookAP_D_PID.getContainingCollections();
+		assertFalse(apDPidCl.contains(clAP));
+		assertTrue(apDPidCl.contains(clAP_D));
+		assertTrue(apDPidCl.contains(clAP_D_PID));
+
 	}
 
 }
