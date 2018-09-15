@@ -279,7 +279,7 @@ public class CollectionTest {
 
 		// NOTE Additional test suite
 
-		Collection cl = new Collection("Example");
+		Collection cl = new Collection(null);
 
 		assertFalse(cl.deleteElement(null));
 		assertFalse(cl.deleteElement(cl));
@@ -320,6 +320,10 @@ public class CollectionTest {
 		assertTrue(books.contains(bookC));
 		assertTrue(books.contains(bookD));
 		assertFalse(books.contains(bookE));
+
+		Set<Book> mustEmpty = clA.findTitle(null);
+
+		assertEquals(0, mustEmpty.size());
 
 	}
 

@@ -248,7 +248,7 @@ public final class Library {
 
 					if (item instanceof Book) {
 						result.add((Book) item);
-					} else if (item instanceof Collection) {
+					} else {
 						tempClList.add((Collection) item);
 					}
 

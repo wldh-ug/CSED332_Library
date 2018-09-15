@@ -131,7 +131,7 @@ public final class Collection extends Element {
 							rs.addProperty("name", cl.getName());
 							rs.add("els", els);
 
-						} else if (el instanceof Book) {
+						} else {
 
 							Book book = (Book) el;
 
