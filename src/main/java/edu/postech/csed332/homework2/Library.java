@@ -5,10 +5,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.*;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.jasypt.util.text.StrongTextEncryptor;
 
 /**
  * Container class for all the collections (that eventually contain books). The library object is
@@ -21,6 +24,7 @@ public final class Library {
 
 	private List<Collection> collections;
 	private Kryo bin;
+	private StandardPBEStringEncryptor enc;
 
 	/**
 	 * Builds a new, empty library.
@@ -31,8 +35,10 @@ public final class Library {
 
 		this.collections = new ArrayList<>();
 		this.bin = new Kryo();
+		this.enc = new StandardPBEStringEncryptor();
 		
-		bin.register(List.class);
+		bin.register(ArrayList.class);
+		enc.setPassword("jEAAACFBAAYAZsYmNozPE+QsIOSVyb9l+0wdD91frI6ucuodtBZnL9CN/66dRqJwBFRsbcKdMfvNkkMa5FRVRRWHBSjyKA7BXpn4ZlgxJ");
 
 		System.out.println("Empty library created.");
 
@@ -48,8 +54,10 @@ public final class Library {
 		// NOTE Implemented
 
 		this.bin = new Kryo();
+		this.enc = new StandardPBEStringEncryptor();
 
-		bin.register(List.class);
+		bin.register(ArrayList.class);
+		enc.setPassword("jEAAACFBAAYAZsYmNozPE+QsIOSVyb9l+0wdD91frI6ucuodtBZnL9CN/66dRqJwBFRsbcKdMfvNkkMa5FRVRRWHBSjyKA7BXpn4ZlgxJ");
 
 		try {
 
@@ -78,18 +86,38 @@ public final class Library {
 	public void saveLibraryToFile(String fileName) {
 
 		// NOTE Implemented
-		
+
+		// Prepare data
+		Iterator<Collection> iter = this.collections.iterator();
+		ArrayList<String> data = new ArrayList<>();
+
+		while (iter.hasNext()) {
+			data.add(this.enc.encrypt(iter.next().getStringRepresentation()));
+		}
+
 		try {
 
 			Output save = new Output(new FileOutputStream(fileName));
-			bin.writeObject(save, this.collections);
-			save.close();
 
-			System.out.println("Library saved to file '" + fileName + "'.");
+			try {
+
+				bin.writeObject(save, data);
+				System.out.println("Library saved to file '" + fileName + "'.");
+
+			} catch (Exception e) {
+
+				System.err.println("Library save error occurred. Saving aborted.");
+				System.err.println(e.toString());
+
+			} finally {
+
+				save.close();
+
+			}
 
 		} catch (Exception e) {
 
-			System.err.println("File '" + fileName + "' cannot be opened, failed to save.");
+			System.err.println("File '" + fileName + "' cannot be opened, failed to save. Check permissions and if target directory does not exists.");
 
 		}
 
@@ -105,6 +133,29 @@ public final class Library {
 		// NOTE Implemented
 
 		return collections;
+
+	}
+
+	/**
+	 * Adds the collection to the library.
+	 *
+	 * @param cl new collection
+	 */
+	public void addCollection(Collection cl) {
+
+		// NOTE Additional function
+
+		Iterator<Collection> iter = collections.iterator();
+
+		while (iter.hasNext()) {
+			if (iter.next().getName().equals(cl.getName())) { 
+				return;
+			}
+		}
+
+		collections.add(cl);
+
+		System.out.println("New collection [" + cl.getName() + "] added to library.");
 
 	}
 

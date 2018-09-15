@@ -1,3 +1,11 @@
+## Test Code
+save/
+!save/empty.lib
+!save/notlib.lib
+!save/text.lib
+!save/example.lib
+
+
 ## Maven
 target/
 pom.xml.tag
