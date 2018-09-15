@@ -17,7 +17,11 @@
 + **Collection**  
     Amounts of collections are highly limited, and structure is more complicated, so I think it is more efficient to use JSON in this part.  
 
+<<<<<<< HEAD
 + **Library** (Data Save & Load)  
+=======
++ **Library** (Data Save & Load)
+>>>>>>> d6de434a5a0dc874800e1870393315e1d9bded41
     I used [Kryo](https://github.com/EsotericSoftware/kryo) and [Jasypt](http://www.jasypt.org/). Because I don't like DB to be exposed.  
 
 ## Additional Functions
