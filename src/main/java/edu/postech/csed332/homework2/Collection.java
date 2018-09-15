@@ -2,6 +2,7 @@ package edu.postech.csed332.homework2;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public final class Collection extends Element {
 
 		// NOTE Implemented
 
-		this.name = name;
+		this.name = (name == null) ? "" : name;
 		this.elements = new ArrayList<>();
 
 	}
@@ -61,7 +62,11 @@ public final class Collection extends Element {
 	 * @return the name
 	 */
 	public String getName() {
-		// TODO implement this
+
+		// NOTE Implemented
+
+		return this.name;
+
 	}
 
 	/**
@@ -74,7 +79,29 @@ public final class Collection extends Element {
 	 * @return true on success, false on fail
 	 */
 	public boolean addElement(Element element) {
-		// TODO implement this
+
+		// NOTE Implemented
+
+		if (element != null && element.getParentCollection() == null) {
+
+			try {
+
+				return this.elements.add(element);
+
+			} catch (Exception e) {
+
+				System.err.println(e.toString());
+
+			}
+
+		} else {
+
+			System.err.println("Element is null or already have parent collection.");
+
+		}
+
+		return false;
+
 	}
 
 	/**
@@ -85,7 +112,20 @@ public final class Collection extends Element {
 	 * @return true on success, false on fail
 	 */
 	public boolean deleteElement(Element element) {
-		// TODO implement this
+
+		// NOTE Implemented
+
+		if (element != null && elements.contains(element)) {
+
+			element.setParentCollection(null);
+			elements.remove(element);
+
+			return true;
+
+		}
+
+		return false;
+
 	}
 
 	/**
@@ -94,7 +134,11 @@ public final class Collection extends Element {
 	 * @return the list of elements
 	 */
 	public List<Element> getElements() {
-		// TODO implement this
+
+		// NOTE Implemented
+
+		return elements;
+
 	}
 
 	/**
@@ -106,7 +150,47 @@ public final class Collection extends Element {
 	 * @return Return the book titles that the given author wrote
 	 */
 	public Set<Book> findTitle(String author) {
-		// TODO implement this
+
+		// NOTE Implemented
+
+		HashSet<Book> result = new HashSet<>();
+
+		if (author != null) {
+
+			Iterator<Element> iter = this.elements.iterator();
+
+			while (iter.hasNext()) {
+
+				Element one = iter.next();
+
+				try {
+
+					Book book = (Book) one;
+
+					if (book.getAuthor().contains(author)) {
+
+						result.add(book);
+						System.out.println("Book <" + book.getTitle() + "> found.");
+
+					}
+
+				} catch (ClassCastException e) {
+
+					Collection cl = (Collection) one;
+					result.addAll(cl.findTitle(author));
+
+				} catch (Exception e) {
+
+					System.err.println("Failed to analyze type of an element.");
+
+				}
+
+			}
+
+		}
+
+		return result;
+
 	}
 
 }
