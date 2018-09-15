@@ -181,6 +181,25 @@ public final class Collection extends Element {
 
 		if (element != null && element.getParentCollection() == null) {
 
+			// Check if element is one of parents of this collection
+			ArrayList<Collection> parents = new ArrayList<Collection>();
+			parents.add(this);
+
+			Collection tClctn = this.getParentCollection();
+			while (tClctn != null) {
+
+				parents.add(tClctn);
+				tClctn = tClctn.getParentCollection();
+
+			}
+
+			if (parents.contains(element)) {
+
+				return false;
+
+			}
+
+			// Non-cycle check completed
 			try {
 
 				element.setParentCollection(this);
@@ -191,6 +210,11 @@ public final class Collection extends Element {
 				System.err.println(e.toString());
 
 			}
+
+		} else if (element != null && element.getParentCollection().equals(this)) {
+
+			// Already registered
+			return true;
 
 		} else {
 
