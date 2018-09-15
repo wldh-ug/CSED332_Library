@@ -1,8 +1,9 @@
 ## Test Code
 save/*
 !save/empty.lib
-!save/notlib.lib
+!save/wrong.lib
 !save/text.lib
+!save/zero.lib
 !save/example.lib
 
 
