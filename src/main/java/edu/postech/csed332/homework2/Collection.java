@@ -93,6 +93,7 @@ public final class Collection extends Element {
 
 			try {
 
+				element.setParentCollection(this);
 				return this.elements.add(element);
 
 			} catch (Exception e) {
