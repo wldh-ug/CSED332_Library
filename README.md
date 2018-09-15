@@ -2,8 +2,7 @@
 > **[Jio Gim](mailto:jio.gim@postech.edu)**, Creative IT Engineering, POSTECH  
 > **Student ID:** 20160087, **Povis ID:** iknowme
 
-## Data Save & String Representations
-#### String Representations
+## String Representations
 + **Book**  
     I used `;(semicolon)` instead of JSON. Because of time lack so I didn't tested about this, but I think that using JSON stringifier/parser on every Book instance may use a lot of memory resources when if there're astronomical amounts of books.  
     ```prolog
@@ -18,18 +17,13 @@
 + **Collection**  
     Amounts of collections are highly limited, and structure is more complicated, so I think it is more efficient to use JSON in this part.  
 
-#### Data Save & Load (SR of Library)
-I used [Kryo](https://github.com/EsotericSoftware/kryo) and [Jasypt](http://www.jasypt.org/). Because I don't like DB to be exposed.  
++ **Library** (Data Save & Load)
+    I used [Kryo](https://github.com/EsotericSoftware/kryo) and [Jasypt](http://www.jasypt.org/). Because I don't like DB to be exposed.  
 
 ## Additional Functions
-#### `Book.escape`
-A function for escape semicolons to make string representation.  
-
-#### `Book.unescape`
-A function for unescape semicolons to interpret string representation.  
-
-#### `Library.addCollection`
-A function for addition of collections to specific library. 
+- `Book.escape` A function for escape semicolons to make string representation.  
+- `Book.unescape` A function for unescape semicolons to interpret string representation.  
+- `Library.addCollection` A function for addition of collections to specific library. 
 
 ## Troubleshoot
 #### If characters from test result is broken
