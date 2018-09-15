@@ -19,8 +19,21 @@
     Amounts of collections are highly limited, and structure is more complicated, so I think it is more efficient to use JSON in this part.  
 
 #### Data Save & Load (SR of Library)
-I used [Kryo](https://github.com/EsotericSoftware/kryo).
+I used [Kryo](https://github.com/EsotericSoftware/kryo) and [Jasypt](http://www.jasypt.org/). Because I don't like DB to be exposed.  
+
+## Additional Functions
+#### `Book.escape`
+A function for escape semicolons to make string representation.  
+
+#### `Book.unescape`
+A function for unescape semicolons to interpret string representation.  
+
+#### `Library.addCollection`
+A function for addition of collections to specific library. 
 
 ## Troubleshoot
 #### If characters from test result is broken
 Please set your console's code page to **UTF-8(65001)**.
+
+#### JaCoCo successfully executed, but no reports
+Please move repository to the path which does not cotain non-ASCII characters.  
