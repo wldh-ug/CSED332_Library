@@ -203,54 +203,69 @@ public final class Library {
 		if (collection == null)
 			return result;
 
-		List<Collection> clList = new ArrayList<>(collections);
+		List<Collection> clList = new ArrayList<>(this.collections);
+		List<Collection> fltdClList = new ArrayList<>();
+		List<Collection> tempClList = new ArrayList<>();
 
 		// Filter collections
-		List<Collection> fltdClList = new ArrayList<>();
-		Iterator<Collection> iterC = clList.iterator();
+		while (clList.size() > 0) {
 
-		while (iterC.hasNext()) {
+			Iterator<Collection> iterC = clList.iterator();
 
-			Collection tClctn = iterC.next();
+			while (iterC.hasNext()) {
 
-			if (tClctn.getName().equals(collection)) {
-				fltdClList.add(tClctn);
-			} else {
+				Collection tClctn = iterC.next();
 
-				Iterator<Element> iterE = tClctn.getElements().iterator();
+				if (tClctn.getName().equals(collection)) {
+					fltdClList.add(tClctn);
+				} else {
 
-				while (iterE.hasNext()) {
+					Iterator<Element> iterE = tClctn.getElements().iterator();
 
-					Element item = iterE.next();
+					while (iterE.hasNext()) {
 
-					if (item instanceof Collection) {
-						clList.add((Collection) item);
+						Element item = iterE.next();
+
+						if (item instanceof Collection) {
+							tempClList.add((Collection) item);
+						}
+
 					}
 
 				}
 
 			}
 
+			clList = tempClList;
+			tempClList = new ArrayList<>();
+
 		}
 
 		// Collect books
-		Iterator<Collection> iterFC = fltdClList.iterator();
+		while (fltdClList.size() > 0) {
 
-		while (iterFC.hasNext()) {
+			Iterator<Collection> iterFC = fltdClList.iterator();
 
-			Iterator<Element> iterFE = iterFC.next().getElements().iterator();
+			while (iterFC.hasNext()) {
 
-			while (iterFE.hasNext()) {
+				Iterator<Element> iterFE = iterFC.next().getElements().iterator();
 
-				Element item = iterFE.next();
+				while (iterFE.hasNext()) {
 
-				if (item instanceof Book) {
-					result.add((Book) item);
-				} else if (item instanceof Collection) {
-					fltdClList.add((Collection) item);
+					Element item = iterFE.next();
+
+					if (item instanceof Book) {
+						result.add((Book) item);
+					} else if (item instanceof Collection) {
+						tempClList.add((Collection) item);
+					}
+
 				}
 
 			}
+
+			fltdClList = tempClList;
+			tempClList = new ArrayList<>();
 
 		}
 
