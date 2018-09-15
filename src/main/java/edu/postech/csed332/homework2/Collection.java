@@ -170,7 +170,7 @@ public final class Collection extends Element {
 
 				Element one = iter.next();
 
-				try {
+				if (one instanceof Book) {
 
 					Book book = (Book) one;
 
@@ -181,12 +181,12 @@ public final class Collection extends Element {
 
 					}
 
-				} catch (ClassCastException e) {
+				} else if (one instanceof Collection) {
 
 					Collection cl = (Collection) one;
 					result.addAll(cl.findTitle(author));
 
-				} catch (Exception e) {
+				} else {
 
 					System.err.println("Failed to analyze type of an element.");
 
