@@ -86,7 +86,16 @@ public final class Collection extends Element {
 
 				}).create();
 
-		return (Collection) gson.fromJson(stringRepresentation, Element.class);
+		try {
+
+			return (Collection) gson.fromJson(
+					(stringRepresentation == null) ? "" : stringRepresentation, Element.class);
+
+		} catch (Exception e) {
+
+			return new Collection("");
+
+		}
 
 	}
 
