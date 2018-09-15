@@ -1,5 +1,5 @@
 ## Test Code
-save/
+save/*
 !save/empty.lib
 !save/notlib.lib
 !save/text.lib
