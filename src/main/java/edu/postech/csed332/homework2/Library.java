@@ -127,18 +127,66 @@ public final class Library {
 	 */
 	public Set<Book> findBooks(String collection) {
 		
-		// TODO implement this
+		// NOTE Implemented
 
 		HashSet<Book> result = new HashSet<>();
-		Iterator<Collection> iter = this.collections.iterator();
+		if (collection == null)
+			return result;
 
-		while (iter.hasNext()) {
+		List<Collection> clList = new ArrayList<>(collections);
 
-			Collection tClctn = iter.next();
+		// Filter collections
+		List<Collection> fltdClList = new ArrayList<>();
+		Iterator<Collection> iterC = clList.iterator();
+
+		while (iterC.hasNext()) {
+
+			Collection tClctn = iterC.next();
 
 			if (tClctn.getName().equals(collection)) {
 
+				fltdClList.add(tClctn);
 
+			} else {
+
+				Iterator<Element> iterE = tClctn.getElements().iterator();
+
+				while (iterE.hasNext()) {
+
+					Element item = iterE.next();
+
+					if (item instanceof Collection) {
+
+						clList.add((Collection) item);
+
+					}
+
+				}
+
+			}
+
+		}
+
+		// Collect books
+		Iterator<Collection> iterFC = fltdClList.iterator();
+
+		while (iterFC.hasNext()) {
+
+			Iterator<Element> iterFE = iterFC.next().getElements().iterator();
+
+			while (iterFE.hasNext()) {
+
+				Element item = iterFE.next();
+
+				if (item instanceof Book) {
+
+					result.add((Book) item);
+
+				} else if (item instanceof Collection) {
+
+					fltdClList.add((Collection) item);
+
+				}
 
 			}
 
